@@ -30,7 +30,7 @@ namespace TodoApi.Controllers
 
         // GET: api/Todo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
+        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItem()
         {
             return await _context.TodoItems.ToListAsync();
         }
@@ -70,7 +70,7 @@ namespace TodoApi.Controllers
             {
                 if (!TodoItemExists(id))
                 {
-                    return NotFound($"TodoItem with id {id} not found.");
+                    return NotFound();
                 }
                 else
                 {
@@ -87,19 +87,10 @@ namespace TodoApi.Controllers
         [HttpPost]
         public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
         {
-            try
-            {
-                _context.TodoItems.Add(todoItem);
-                await _context.SaveChangesAsync();
+            _context.TodoItems.Add(todoItem);
+            await _context.SaveChangesAsync();
 
-                return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
- 
-            }
-            catch (DbUpdateException ex)
-            {
-                // You can log the exception here, e.g., log the details of the exception.
-                return BadRequest("Error occurred while adding TodoItem: " + ex.Message);
-            }
+            return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
         }
 
         // DELETE: api/Todo/5
