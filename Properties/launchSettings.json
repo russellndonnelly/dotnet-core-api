@@ -11,7 +11,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:5000",
-      "launchUrl": "Swagger" // This ensures the browser opens to the root (Swagger UI)
+      "launchUrl": "Swagger"
     }
   }
 }
